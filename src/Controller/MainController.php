@@ -55,6 +55,7 @@ final class MainController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+                        $contact->setStatus('new');
             $contact->setCreatedAt(new \DateTimeImmutable('now'));
 
             $em->persist($contact);
