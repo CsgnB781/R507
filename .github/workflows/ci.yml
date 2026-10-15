@@ -47,4 +47,6 @@ jobs:
           php bin/console doctrine:fixtures:load --no-interaction --env=test
 
       - name: Run tests
+        env:
+          DATABASE_URL: mysql://symfony:symfony@127.0.0.1:3306/symfony?serverVersion=8.0
         run: php bin/phpunit

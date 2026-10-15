@@ -1,0 +1,48 @@
+<?php
+
+namespace App\Tests\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+
+class ContactControllerTest extends WebTestCase
+{
+    public function testContactFormDisplay(): void
+    {
+        $client = static::createClient();
+        $client->request('GET', '/');
+
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorTextContains('h1', 'Formulaire de contact');
+    }
+
+    public function testContactFormSubmission(): void
+    {
+        $client = static::createClient();
+        $client->request('GET', '/');
+
+        $client->submitForm('Envoyer', [
+            'form[firstName]' => 'John',
+            'form[name]' => 'Doe',
+            'form[message]' => 'Test message',
+        ]);
+
+        $this->assertResponseRedirects('/');
+    }
+
+    public function testContactListDisplay(): void
+    {
+        $client = static::createClient();
+        $client->request('GET', '/liste');
+
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorTextContains('h1', 'Liste de contacts');
+    }
+
+    public function testLoginPageDisplay(): void
+    {
+        $client = static::createClient();
+        $client->request('GET', '/connexion');
+
+        $this->assertResponseIsSuccessful();
+    }
+}
