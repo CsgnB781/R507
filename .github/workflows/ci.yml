@@ -38,6 +38,9 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
 
+      - name: PHPStan Static Analysis
+        run: vendor/bin/phpstan analyse
+
       - name: Setup test database
         env:
           DATABASE_URL: mysql://symfony:symfony@127.0.0.1:3306/symfony?serverVersion=8.0
