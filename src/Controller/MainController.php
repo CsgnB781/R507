@@ -18,8 +18,9 @@ final class MainController extends AbstractController
     #[Route('/connexion', name: 'login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        if (!empty($this->getUser()))
+        if (!empty($this->getUser())) {
             return $this->redirectToRoute('admin');
+        }
 
         return $this->render('@EasyAdmin/page/login.html.twig', [
             'error' => $authenticationUtils->getLastAuthenticationError(),
@@ -55,7 +56,7 @@ final class MainController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-                        $contact->setStatus('new');
+            $contact->setStatus('new');
             $contact->setCreatedAt(new \DateTimeImmutable('now'));
 
             $em->persist($contact);
